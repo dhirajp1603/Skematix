@@ -1,8 +1,14 @@
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
 #root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
 }
 
 .logo {
@@ -101,12 +107,123 @@
   max-width: 1000px;
 }
 
+/* How Skematix Works layout */
+.how-works-container {
+  display: flex;
+  gap: 28px;
+  align-items: stretch; /* ensure both columns match height */
+  max-width: 1100px;
+  /* nudge section horizontally so both left and right have equal spacing */
+  margin: 0 -180px; /* top/bottom 0, left/right -180px */
+}
+.how-left {
+  flex: 1 1 720px;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+.how-right {
+  width: 680px;
+  flex: 0 0 680px;
+  display: flex;
+  flex-direction: column;
+  /* no per-column transform; symmetric margin on container handles horizontal shift */
+}
+.how-cards {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  flex: 1 1 auto;
+}
+.how-card {
+  background: #203251;
+  color: #47ffe3;
+  border-radius: 15px;
+  padding: 26px;
+  min-width: 300px;
+  box-shadow: 0 6px 30px rgba(71,255,227,0.04);
+}
+.how-card {
+  /* make cards taller and vertically centered */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-height: 160px; /* base height for cards */
+}
+.how-card-top {
+  min-height: 240px; /* top card slightly taller */
+}
+.how-row .how-card {
+  min-height: 300px; /* the two side-by-side cards grow taller */
+  flex: 1 1 0;
+}
+.how-row {
+  display: flex;
+  gap: 16px;
+}
+.how-card h3 { color: #47ffe3; margin-bottom: 8px; }
+.how-card p { color: #fff; margin: 0; font-weight: 400; }
+
+.image-box {
+  background: linear-gradient(180deg,#0e1a2a 0%, #0b1420 100%);
+  border-radius: 14px;
+  padding: 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  border: 1px solid rgba(71,255,227,0.06);
+  justify-content: center;
+  height: 100%;
+}
+.image-row {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+.image-item {
+  width: 48%;
+  background: rgba(255,255,255,0.02);
+  border-radius: 10px;
+  padding: 8px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.image-item img { width: 100%; height: 320px; object-fit: cover; border-radius: 8px; display: block; }
+.image-label { color: #bfeee7; font-weight: 800; margin-bottom: 10px; font-size: 15px; }
+.arrow { display:flex; align-items:center; justify-content:center; width: 40px; }
+
+@media (max-width: 1000px) {
+  .how-works-container { flex-direction: column; }
+  .how-right { width: 100%; flex: 1 1 auto; }
+  .image-box { flex-direction: column; }
+  .image-item { width: 100%; }
+  .arrow { transform: rotate(90deg); }
+  .how-row { flex-direction: column; }
+  .image-item img { height: 200px; }
+  /* remove left shifts on small screens so content is centered and readable */
+  .how-left, .how-right { transform: none; }
+  .how-works-container { margin: 0; }
+}
+
 .feature-input {
   display: inline-flex;
   gap: 10px;
   align-items: center;
   justify-content: center;
-  margin: 18px auto 28px auto;
+  /* pulled further upward to tighten spacing with the section above */
+  margin: 0 auto 8px auto;
+  transform: translateY(-32px);
+}
+
+/* Reduce the upward shift on small screens so it doesn't overlap content */
+@media (max-width: 720px) {
+  .feature-input {
+    transform: translateY(-10px);
+    margin: 6px auto 12px auto;
+  }
 }
 .feature-input input {
   padding: 10px 12px;
@@ -142,11 +259,13 @@
 }
 
 .page-wrapper {
-  padding: 48px 3vw;
+  padding: 32px 3vw; /* slightly reduced vertical padding */
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
   align-items: center; /* center all sections horizontally */
+  max-width: 1100px; /* keep content width but let root/background span full width */
+  margin: 0 auto;
 }
 
 /* ensure sections take full available width but content inside can be centered via .centered-section */
