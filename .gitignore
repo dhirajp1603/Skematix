@@ -2,3 +2,5 @@ pretrained_models/
 *.pth
 *.pkl
 *.pt
+
+newwww/
