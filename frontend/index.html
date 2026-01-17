@@ -1,0 +1,37 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Skematix — Upload Floorplan</title>
+    <link rel="stylesheet" href="/frontend/style.css" />
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📐</text></svg>">
+  </head>
+  <body>
+    <main>
+      <h1>Skematix — Upload Floorplan</h1>
+      <section class="panel">
+        <form id="uploadForm">
+          <label>Choose image (PNG/JPG):</label>
+          <input type="file" id="fileInput" name="file" accept="image/*" />
+          <button type="submit">Upload & Analyze</button>
+        </form>
+        <div class="controls">
+          <label>Scale (m per px): <span id="scaleDisplay">—</span></label>
+          <button id="calibrateScale">Calibrate Scale</button>
+          <button id="placeDoor">Place Door</button>
+          <button id="placeWindow">Place Window</button>
+          <button id="saveEdits" disabled>Save Corrections</button>
+          <button id="generate3d" disabled>Generate 3D (Blender)</button>
+        </div>
+      </section>
+
+      <section class="panel preview">
+        <div id="previewWrap">
+          <canvas id="overlay"></canvas>
+          <img id="previewImg" alt="preview" />
+        </div>
+        <div id="info">No image loaded.</div>
+        <pre id="jsonOut" style="display:none"></pre>
+      </section>
+    </main>
+    <script src="/frontend/app.js"></script>

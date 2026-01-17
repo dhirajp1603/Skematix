@@ -1,0 +1,86 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Skematix Viewer</title>
+    <style>body{margin:0;background:#ffffff} canvas{display:block}</style>
+  </head>
+  <body>
+    <div id="container"></div>
+    <!-- Use local ES module vendor files to avoid CDN/tracking prevention issues -->
+    <script type="importmap">
+      {
+        "imports": {
+          "three": "./vendor/three.module.js"
+        }
+      }
+    </script>
+
+    <script type="module">
+      import * as THREE from 'three';
+      import { GLTFLoader } from './vendor/GLTFLoader.js';
+      import { DRACOLoader } from './vendor/DRACOLoader.js';
+      import { OrbitControls } from './vendor/OrbitControls.js';
+
+      const container = document.getElementById('container');
+      const scene = new THREE.Scene();
+      const camera = new THREE.PerspectiveCamera(60, window.innerWidth/window.innerHeight, 0.01, 1000);
+      const renderer = new THREE.WebGLRenderer({antialias:true});
+      renderer.setSize(window.innerWidth, window.innerHeight);
+      renderer.setPixelRatio(window.devicePixelRatio || 1);
+      renderer.setClearColor(0xffffff, 1);
+      container.appendChild(renderer.domElement);
+
+      // Lights
+      const dir = new THREE.DirectionalLight(0xffffff, 0.9);
+      dir.position.set(5, 5, 10);
+      scene.add(dir);
+      scene.add(new THREE.AmbientLight(0xaaaaaa));
+
+      // Grid and axes
+      const grid = new THREE.GridHelper(10, 20, 0x444444, 0x222222);
+      scene.add(grid);
+      const axes = new THREE.AxesHelper(1.5);
+      scene.add(axes);
+
+      camera.position.set(2, -4, 4);
+      camera.up.set(0,0,1);
+
+      // Controls
+      const controls = new OrbitControls(camera, renderer.domElement);
+      controls.target.set(2, 2, 0);
+      controls.update();
+
+      // Load glTF with DRACO support
+      const loader = new GLTFLoader();
+      const dracoLoader = new DRACOLoader();
+      // Prefer local decoder in vendor/ if present (put draco_decoder.js + .wasm there)
+      dracoLoader.setDecoderPath('./vendor/');
+      loader.setDRACOLoader(dracoLoader);
+
+      const modelUrl = 'model.glb';
+      const loadingEl = document.getElementById('loading');
+      loader.load(modelUrl, (gltf) => {
+        const model = gltf.scene;
+        const box = new THREE.Box3().setFromObject(model);
+        const center = box.getCenter(new THREE.Vector3());
+        model.position.sub(center);
+        scene.add(model);
+        loadingEl.style.display = 'none';
+      }, (xhr) => {
+        const p = xhr.loaded / (xhr.total || 1);
+        loadingEl.textContent = 'Loading model... ' + Math.round(p*100) + '%';
+      }, (err) => {
+        console.error('GLTF load error', err);
+        loadingEl.textContent = 'Load failed';
+      });
+
+      function animate(){ requestAnimationFrame(animate); renderer.render(scene,camera); }
+      animate();
+      window.addEventListener('resize', ()=>{
+        camera.aspect = window.innerWidth/window.innerHeight; camera.updateProjectionMatrix(); renderer.setSize(window.innerWidth, window.innerHeight);
+      });
+    </script>
+    <div id="loading" style="position:absolute;left:10px;top:10px;padding:8px;background:#fff8;backdrop-filter:blur(4px);border-radius:4px">Loading model...</div>
+  </body>
+</html>
