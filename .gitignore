@@ -1,6 +1,201 @@
-pretrained_models/
-*.pth
-*.pkl
-*.pt
+# =============================================================================
+# .gitignore — ML + Web 3D Floor Plan Viewer (Production Ready)
+# =============================================================================
+# Safe for team collaboration
+# Cross-platform (Windows / macOS / Linux)
+# =============================================================================
 
-newwww/
+# -----------------------------------------------------------------------------
+# PYTHON VIRTUAL ENVIRONMENTS
+# -----------------------------------------------------------------------------
+.venv/
+venv/
+env/
+ENV/
+
+# Local environment variable files
+.env
+.env.local
+.env.*.local
+
+# -----------------------------------------------------------------------------
+# PYTHON CACHE & BUILD ARTIFACTS
+# -----------------------------------------------------------------------------
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Python packaging
+*.egg-info/
+.eggs/
+dist/
+build/
+
+# Coverage / testing
+.coverage
+.coverage.*
+htmlcov/
+.pytest_cache/
+.mypy_cache/
+.dmypy.json
+dmypy.json
+.tox/
+.hypothesis/
+
+# -----------------------------------------------------------------------------
+# PRETRAINED MODEL WEIGHTS & LARGE BINARIES
+# -----------------------------------------------------------------------------
+# Never commit ML weights
+*.pth
+*.pt
+*.pkl
+*.pickle
+*.h5
+*.onnx
+*.pb
+*.savedmodel/
+
+# Model directories
+pretrained_models/
+models/weights/
+checkpoints/
+
+# -----------------------------------------------------------------------------
+# NODE / WEB
+# -----------------------------------------------------------------------------
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+package-lock.json
+yarn.lock
+.npm/
+.node_cache/
+
+# -----------------------------------------------------------------------------
+# GENERATED 3D / TEMP EXPORTS
+# -----------------------------------------------------------------------------
+*.glb.tmp
+*.gltf.tmp
+*.obj.tmp
+
+# -----------------------------------------------------------------------------
+# LOGS & TEMP FILES
+# -----------------------------------------------------------------------------
+*.log
+logs/
+log/
+debug/
+debug_*.json
+*.debug
+*.tmp
+*.temp
+*.bak
+*.backup
+*~
+
+# -----------------------------------------------------------------------------
+# JUPYTER / IPYTHON
+# -----------------------------------------------------------------------------
+.ipynb_checkpoints/
+*.ipynb_checkpoints
+
+# -----------------------------------------------------------------------------
+# IDE / EDITOR FILES
+# -----------------------------------------------------------------------------
+# VS Code
+.vscode/
+*.code-workspace
+
+# PyCharm / JetBrains
+.idea/
+*.iml
+*.iws
+*.ipr
+
+# Visual Studio
+.vs/
+
+# Vim / Neovim
+[._]*.sw[a-p]
+[._]*.s[a-v][a-z]
+.vim/
+.nvimrc
+
+# Sublime
+*.sublime-project
+*.sublime-workspace
+
+# Emacs
+*~
+\#*\#
+.\#*
+
+# -----------------------------------------------------------------------------
+# OPERATING SYSTEM FILES
+# -----------------------------------------------------------------------------
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+._*
+.Spotlight-V100
+.Trashes
+
+# Windows
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+*.lnk
+
+# Linux
+.directory
+.Trash-*
+
+# -----------------------------------------------------------------------------
+# LOCAL DEVELOPMENT OVERRIDES
+# -----------------------------------------------------------------------------
+local_config.py
+config.local.py
+.run/
+
+# -----------------------------------------------------------------------------
+# KEEP THESE FILES & DIRECTORIES (IMPORTANT)
+# -----------------------------------------------------------------------------
+# Source code
+!pipeline/
+!backend/
+!frontend/
+!web3d/
+!blender/
+!scripts/
+!docs/
+
+# Configuration files
+!*.yml
+!*.yaml
+!*.json
+!*.toml
+!*.cfg
+!*.ini
+!*.conf
+
+# Documentation
+!README.md
+!LICENSE
+!CONTRIBUTING.md
+!*.md
+
+# Project config
+!requirements.txt
+!package.json
+
+# Keep empty folders
+!.gitkeep
+!input/.gitkeep
+!output/.gitkeep
+
+# -----------------------------------------------------------------------------
+# END OF FILE
+# -----------------------------------------------------------------------------
